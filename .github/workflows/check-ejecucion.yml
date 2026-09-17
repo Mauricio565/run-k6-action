@@ -1,0 +1,6 @@
+- name: Run k6 with Grafana Cloud
+  run: |
+    K6_PROMETHEUS_RW_URL=${{ secrets.GRAFANA_URL }} \
+    K6_PROMETHEUS_RW_USERNAME=${{ secrets.GRAFANA_USER }} \
+    K6_PROMETHEUS_RW_PASSWORD=${{ secrets.GRAFANA_API_KEY }} \
+    k6 run tests/performance/check.js --summary-export=summary.json
