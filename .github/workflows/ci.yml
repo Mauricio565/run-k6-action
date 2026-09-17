@@ -1,13 +1,12 @@
 jobs:
-  performance-test:                 # 1. Job de pruebas de performance
-    runs-on: ubuntu-latest          # 2. Runner en Ubuntu
+  performance-test:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4   # 3. Descarga tu repositorio
-
-      - uses: grafana/setup-k6-action@v1   # 4. Instala k6 en el runner
+      - uses: actions/checkout@v4       # Descarga tu repo
+      - uses: grafana/setup-k6-action@v1 # Instala k6 en el runner
 
       - name: Run k6 with Grafana Cloud
-        run: |                      # 5. Ejecuta k6 con variables de entorno
+        run: |
           K6_PROMETHEUS_RW_URL=${{ secrets.GRAFANA_URL }} \
           K6_PROMETHEUS_RW_USERNAME=${{ secrets.GRAFANA_USER }} \
           K6_PROMETHEUS_RW_PASSWORD=${{ secrets.GRAFANA_API_KEY }} \
@@ -17,4 +16,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: k6-summary
-          path: test/check.json        # 6. Guarda el resumen como artefacto del pipeline
+          path: summary.json
